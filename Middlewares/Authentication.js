@@ -23,7 +23,7 @@ function Authenticate(req, res, next){
             }
         })
     }else{
-        req.send("Opps!, Its Seems Like You didn't Login. Please Login First!")
+        res.send("Opps!, Its Seems Like You didn't Login. Please Login First!")
     }
 }
 
