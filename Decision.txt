@@ -5,5 +5,7 @@ Schema of a Users Collection:-
       Phone_NO = String (We Can also Use a Bigint in pleace of String for Phone_NO, But String is more relevent here).
 
 
+Take a Decision of Validating a input for Signup (that is All the Fields are Fill or not).
 
+Take a Decision for Encrypting a Password by the help of npm package(bcrypt) for the Security Purpose.
   
