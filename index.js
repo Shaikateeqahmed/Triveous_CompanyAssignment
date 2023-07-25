@@ -6,6 +6,8 @@ const { Authenticate } = require("./Middlewares/Authentication.js");
 const { Product } = require("./Routes/ProductRoute.js");
 const { Cart } = require("./Routes/CartRoute.js");
 const { Order } = require("./Routes/OrderRoute.js");
+require("dotenv").config();
+
 
 const app = express();
 
@@ -17,7 +19,7 @@ app.use("/product",Product);
 app.use("/addtocart",Cart);
 app.use("/order",Order);
 
-app.listen(3000,async()=>{
+app.listen(process.env.port,async()=>{
     await connection;
-    console.log(`Server is Running on a Port 3000`);
+    console.log(`Server is Running on a Port ${process.env.port}`);
 })

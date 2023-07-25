@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const { UserModel } = require("../Modules/UserModel.js");
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const User = express.Router();
 
@@ -60,7 +61,7 @@ User.post("/login", async (req, res) => {
                 } else {
 
                     // if User is Already Exist and Password is correct then give a Token to the login user.
-                    let token = jwt.sign({ UserID: Is_User_Exist[0]._id, UserRole : Is_User_Exist[0].Role }, "masai");
+                    let token = jwt.sign({ UserID: Is_User_Exist[0]._id, UserRole : Is_User_Exist[0].Role }, process.env.key);
                     res.send(token);
                 }
             })

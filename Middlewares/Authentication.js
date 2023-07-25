@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 function Authenticate(req, res, next){
 
@@ -8,7 +9,7 @@ function Authenticate(req, res, next){
     if(token){
 
         //verifing the Token.
-        jwt.verify(token,"masai",(error,decode)=>{
+        jwt.verify(token,process.env.key,(error,decode)=>{
             if(error){
                 res.send("Token Expire, Please Login Again!");
             }else{

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
-const connection  = mongoose.connect("mongodb+srv://ShaikAteeqAhmed:shaik@cluster0.yyxbopz.mongodb.net/Triveous_Ecommerce_app?retryWrites=true&w=majority");
+require("dotenv").config();
+const connection  = mongoose.connect(process.env.mongoDBURL);
 
 module.exports={connection};
