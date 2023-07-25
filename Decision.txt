@@ -37,4 +37,14 @@ Taking a Decisions While Building A Authentication Functionality.
 
 =========================================================================================================
 
+Taking a Decisions While Building A Authorization Functionality.
+
+1.Returning a Middleware which check the Role of the user then give the access.
+
+2.Apply A Role Base Access Control.
+
+========================================================================================================
+
+
+
   
