@@ -57,6 +57,8 @@ Cart.patch("/:id",async(req,res)=>{
             res.send("You Are Not Authorised To Update a Quantity of a Cart!");
         }
         
+    }else{
+        res.send(`Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....`);
     }
     
 
