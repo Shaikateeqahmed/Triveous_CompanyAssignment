@@ -4,7 +4,8 @@ const { User } = require("./Routes/UserRoute.js");
 const { Category } = require("./Routes/CategoryRoute.js");
 const { Authenticate } = require("./Middlewares/Authentication.js");
 const { Product } = require("./Routes/ProductRoute.js");
-const {Cart} = require("./Routes/CartRoute.js");
+const { Cart } = require("./Routes/CartRoute.js");
+const { Order } = require("./Routes/OrderRoute.js");
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(Authenticate)
 app.use("/category",Category);
 app.use("/product",Product);
 app.use("/addtocart",Cart);
+app.use("/order",Order);
 
 app.listen(3000,async()=>{
     await connection;
