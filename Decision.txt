@@ -123,3 +123,25 @@ Taking a Decisions While Building A Cart EndPoint.
    ii) Checking for User is Authorised to Delete the Item of a Cart.
 
 =============================================================================================================
+
+Taking a Decisions While Building A Order EndPoint.
+
+1.Make A Get Request. Followign are the Functionality in Get Request.
+   i) EndPoint For Handle Order Placement, Allowing Users to place an order with Products from their Cart.
+   ii) Calculate A Order Date and Assume that Order will Deliver with in 7 days, on this Assupmtion also Calculate the Delivery Date.
+   iii) Checking for is the cart exist or not.
+   iv) Removing the Cart Information from the cart Collection for not appearing again after added to orders.
+
+2.Make A Get Request. Followign are the Functionality in Get Request.
+   i) EndPoint for Get the History of orders of a Perticular User Only.
+   ii) Checking for Is User Make Any Order Or not.
+
+3.Make A Get Request. Followign are the Functionality in Get Request.
+    i) EndPoint for get the Details of a Particular Order by the help of OrderID.
+    ii) Checking For the Order with the ID is Exist or not
+
+4.Make A Delete Request. Followign are the Functionality in Delete Request.
+   i) EndPoint for Deleting of a Particular Order by the help of OrderID.
+   ii) Checking For the Order with the ID is Exist or not
+   iii) Deleting The Order If Exist.
+
