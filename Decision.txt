@@ -70,6 +70,33 @@ Taking a Decisions While Building A Category EndPoint.
 
 ======================================================================================================
 
+Taking a Decisions While Building A Product EndPoint.
+
+1.Make A Post Request. Followign are the Functionality in Post Request.
+   i) Validating a input for Adding a Product(that is All the Fields are Fill or not).
+              Title = String,
+              Price = Number,
+              Description = String,
+              Availability = String,
+              CategoryID = String
+   ii) Only Admin Can Post Or Create A Product By the Help of Authorization Middleware (Role Base Access Control).
+   iii) Saving the Category Data in Database.
+
+2.Make A Get Request. Followign are the Functionality in Get Request.
+   i) Both Admin and Customer can Access the List of a Products.
+
+3.Make A Get Request For a Details of A Particular Product By ID. Followign are the Functionality in Get Request.
+   i) Both Admin and Customer can Access the Product Details By ID.
+
+4.Make A Patch Request. Followign are the Functionality in Patch Request.
+   i) Only Admin Can Update the Availability of a Product.
+   ii) Checking for Product by Given ID is Exist or Not For Update.
+   iii) Updating a data of a Product by ID.
+
+4.Make A Delete Request. Followign are the Functionality in Delete Request.
+   i) Only Admin Can Delete the Product.
+   ii) Checking for Product by Given ID is Exist or Not for Delete.
+   iii) Deleting a data of a Product by ID.
 
 
   

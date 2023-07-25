@@ -48,7 +48,7 @@ Category.patch("/:id", Authorise(["Admin"]), async (req, res) => {
 
         //Updating a data of a category by ID.
         let Update_Activeness = await CategoryModel.findByIdAndUpdate({ _id: CategoryID }, { Active: !CategoryByID[0].Active });
-        res.send(`Category ${CategoryByID[0].CategoryName} is Updated From ${CategoryByID[0].Active} to ${!CategoryByID[0].Active}`);
+        res.send(`Category ${CategoryByID[0].CategoryName} is Updated Active Status From ${CategoryByID[0].Active} to ${!CategoryByID[0].Active}`);
     } else {
         res.send(`Category With This ID Doesn't Exist!`);
     }
