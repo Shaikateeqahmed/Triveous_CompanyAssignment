@@ -16,6 +16,9 @@ Taking a Decisions While Building A Login Functionality.
 
 1.Validating a input for Login (that is All the Fields are Fill or not).
 
+        Email = String,
+        Password = String
+
 2.Checking for User Already Signup or Not.
 
 3.Comparing Hash Password with the given Password at the time of Login.
