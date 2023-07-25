@@ -1,11 +1,25 @@
-Schema of a Users Collection:-
+Taking a Decisions While Building A Signup Functionality.
+
+ 1.Schema of a Users Collection:-
       Name = String,
       Email = String,
       Password = String,
       Phone_NO = String (We Can also Use a Bigint in pleace of String for Phone_NO, But String is more relevent here).
 
+2.Validating a input for Signup (that is All the Fields are Fill or not).
 
-Take a Decision of Validating a input for Signup (that is All the Fields are Fill or not).
+3.Encrypting a Password by the help of npm package(bcrypt) for the Security Purpose.
 
-Take a Decision for Encrypting a Password by the help of npm package(bcrypt) for the Security Purpose.
+==========================================================================================================
+
+Taking a Decisions While Building A Login Functionality.
+
+1.Validating a input for Login (that is All the Fields are Fill or not).
+
+2.Checking for User Already Signup or Not.
+
+3.Comparing Hash Password with the given Password at the time of Login.
+
+4.If User Already Signup And Password is Correct then Give them a Token.
+
   

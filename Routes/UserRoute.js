@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const { UserModel } = require("../Modules/UserModel.js");
+const jwt = require("jsonwebtoken");
 
 const User = express.Router();
 
@@ -38,6 +39,41 @@ User.post("/signup", async (req, res) => {
     } else {
         res.send(`Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....`)
     }
+})
+
+User.post("/login", async (req, res) => {
+
+    let { Email, Password } = req.body;
+
+    let Is_User_Exist = await UserModel.find({ Email });
+    
+    //checking for All Required Fields.
+    if (Email && Password) {
+
+        // Checking that User Is Having a Account Already or Not (That is user signup or not)!
+        if (Is_User_Exist.length > 0) {
+
+            // Checking for Password is Correct or not at the time of login.
+            bcrypt.compare(Password, Is_User_Exist[0].Password, (error, result) => {
+                if (error) {
+                    res.send("Password is Incorrect, Please Check Your Password!");
+                } else {
+
+                    // if User is Already Exist and Password is correct then give a Token to the login user.
+                    let token = jwt.sign({ UserID: Is_User_Exist[0]._id }, "masai");
+                    res.send(token);
+                }
+            })
+        } else {
+            res.send("Opps!, Its Seems Like You didn't Signup. Please Signup First!");
+        }
+
+    } else {
+        res.send("Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....")
+    }
+
+
+
 })
 
 module.exports = { User };
