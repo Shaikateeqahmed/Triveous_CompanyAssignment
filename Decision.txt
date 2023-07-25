@@ -93,11 +93,33 @@ Taking a Decisions While Building A Product EndPoint.
    ii) Checking for Product by Given ID is Exist or Not For Update.
    iii) Updating a data of a Product by ID.
 
-4.Make A Delete Request. Followign are the Functionality in Delete Request.
+5.Make A Delete Request. Followign are the Functionality in Delete Request.
    i) Only Admin Can Delete the Product.
    ii) Checking for Product by Given ID is Exist or Not for Delete.
    iii) Deleting a data of a Product by ID.
 
 ============================================================================================================
 
-  
+Taking a Decisions While Building A Cart EndPoint.
+
+1.Make A Post Request. Followign are the Functionality in Post Request.
+   i) Validating a input for Adding to a card(that is All the Fields are Fill or not).
+              ProductID = String,
+              Quantity = Number,
+              Price = Number,
+   ii) Both Admin and Customer Can Add to cart A Product To They Respective Carts Only.
+   iii) Saving the Cart Details with the Details of Product And Customer in Database.
+
+2.Make A Get Request. Followign are the Functionality in Get Request.
+   i) Both Customer And Admin Can Access to they respective Cart Only.
+
+3.Make A Patch Request. Followign are the Functionality in Patch Request.
+   i) Both Customer And Admin Can Update the Quantity of a Cart to they respective cart only.
+   ii) Checking for Quantiy and CartID is Available for update the cart Quatity by the help of cartID.
+   iii) Checking for User is Authorised to Update a Quantity of a Cart.
+
+4.Make A Delete Request. Followign are the Functionality in Delete Request.
+   i) Both Customer And Admin Can Update the Quantity of a Cart to they respective cart only.
+   ii) Checking for User is Authorised to Delete the Item of a Cart.
+
+=============================================================================================================

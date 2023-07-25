@@ -6,7 +6,7 @@ const { ProductModel } = require("../Modules/ProductModel");
 const Cart = express.Router();
 
 
-//Both Customer And Admin Can Access they Cart Only.
+//Both Customer And Admin Can Access to they respective Cart Only.
 Cart.get("/", async (req, res) => {
     let CustomerID = req.body.UserID;
     let CartDetailsOfACustomer = await CartModel.find({ CustomerID });
@@ -40,18 +40,23 @@ Cart.post("/", Authorise(["Customer", "Admin"]), async (req, res) => {
 Cart.patch("/:id",async(req,res)=>{
     let cartID = req.params.id;
     let {Quantity} = req.body;
-    let CustomerID = req.body.UserID;
-    let CustomerID_in_cart = await CartModel.find({_id:cartID});
-    let price_per_unit = (CustomerID_in_cart[0].Total_Price/CustomerID_in_cart[0].Quantity);
 
-    let Total_Price = price_per_unit*Quantity;
-
-    //Checking for User is Authorised to Update a Quantity of a Cart.
-    if(CustomerID===CustomerID_in_cart[0].CustomerID){
-        await CartModel.findByIdAndUpdate({_id:cartID},{Quantity,Total_Price});
-        res.send(`Quantity of a Cart Changes to ${Quantity}`);
-    }else{
-        res.send("You Are Not Authorised To Update a Quantity of a Cart!");
+    //Checking for Quantiy and CartID is Available for update the cart Quatity by the help of cartID.
+    if(Quantity && cartID){
+        let CustomerID = req.body.UserID;
+        let CustomerID_in_cart = await CartModel.find({_id:cartID});
+        let price_per_unit = (CustomerID_in_cart[0].Total_Price/CustomerID_in_cart[0].Quantity);
+    
+        let Total_Price = price_per_unit*Quantity;
+    
+        //Checking for User is Authorised to Update a Quantity of a Cart.
+        if(CustomerID===CustomerID_in_cart[0].CustomerID){
+            await CartModel.findByIdAndUpdate({_id:cartID},{Quantity,Total_Price});
+            res.send(`Quantity of a Cart Changes to ${Quantity}`);
+        }else{
+            res.send("You Are Not Authorised To Update a Quantity of a Cart!");
+        }
+        
     }
     
 
