@@ -89,7 +89,7 @@ Order.get("/orderdetails/:id",async(req,res)=>{
 
 })
 
-//EndPoint for get the Details of a Particular Order by the help of OrderID.
+//EndPoint for Deleting of a Particular Order by the help of OrderID.
 Order.delete("/:id",async(req,res)=>{
     let OrderID = req.params.id;
     let OrderDetailsOfAParticularOrder = await OrderModel.find({_id:OrderID});
