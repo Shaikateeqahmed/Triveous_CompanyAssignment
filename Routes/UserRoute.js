@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const User = express.Router();
 
 User.post("/signup", async (req, res) => {
-    const { Name, Email, Password, Phone_NO } = req.body;
+    const { Name, Email, Password, Phone_NO, Role} = req.body;
 
 
     //checking for All Required Fields.
@@ -29,7 +29,7 @@ User.post("/signup", async (req, res) => {
                 } else {
 
                     // Saving The Data of a User In DataBase.
-                    let newUser = new UserModel({ Name, Email, Password: hash, Phone_NO });
+                    let newUser = new UserModel({ Name, Email, Password: hash, Phone_NO, Role});
                     await newUser.save();
                     res.send(`Congratulations ${Name}, You Signup Successfully!`);
                 }
@@ -60,7 +60,7 @@ User.post("/login", async (req, res) => {
                 } else {
 
                     // if User is Already Exist and Password is correct then give a Token to the login user.
-                    let token = jwt.sign({ UserID: Is_User_Exist[0]._id }, "masai");
+                    let token = jwt.sign({ UserID: Is_User_Exist[0]._id, UserRole : Is_User_Exist[0].Role }, "masai");
                     res.send(token);
                 }
             })
