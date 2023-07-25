@@ -27,6 +27,14 @@ Taking a Decisions While Building A Login Functionality.
 
 =========================================================================================================
 
+Taking a Decisions While Building A Authentication Functionality.
 
+1.Checking is User Having a Token or Not.
+
+2.Validating a Token.
+
+3.Passing a UserID and UserRole to the req.body for Authorization and Security Purpose.
+
+=========================================================================================================
 
   
