@@ -20,6 +20,11 @@ app.use("/addtocart",Cart);
 app.use("/order",Order);
 
 app.listen(process.env.port,async()=>{
-    await connection;
-    console.log(`Server is Running on a Port ${process.env.port}`);
+    try {
+        await connection;
+        console.log(`Server is Running on a Port ${process.env.port}`);
+    } catch (error) {
+        res.send({error:error.message})
+    }
+   
 })
