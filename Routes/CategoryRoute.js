@@ -3,6 +3,55 @@ const { Authorise } = require("../Middlewares/Authorization.js");
 const { CategoryModel } = require("../Modules/CategoryModel");
 const Category = express.Router();
 
+/** 
+ * @swagger 
+ * components: 
+ *   schemas: 
+ *     Category : 
+ *       type: object 
+ *       properties: 
+ *         id: 
+ *           type: string 
+ *           description: The auto-generated id of the user 
+ *         CategoryName: 
+ *           type: string 
+ *           description: The Category Name
+ *         Active: 
+ *           type: boolean
+ *           description: The Category is active or not 
+ */ 
+
+/**
+ * @swagger
+ * tags:
+ *  name: Categories
+ *  description: All the API Routes related to Categories
+ */
+
+/** 
+ * @swagger 
+ * /category: 
+ *   post: 
+ *     summary: To Create the details of a new category 
+ *     tags: [Categories] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Category' 
+ *     responses: 
+ *       200: 
+ *         description: The category was added successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Category' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+ *         description: Category Already Exist, Please Check It!
+ */ 
 
 //Only Admin Can Post or Create A Category.
 Category.post("/", Authorise(["Admin"]), async (req, res) => {
@@ -34,6 +83,28 @@ Category.post("/", Authorise(["Admin"]), async (req, res) => {
 
 })
 
+/** 
+ * @swagger 
+ * /category: 
+ *   get: 
+ *     summary: To get the list of all category
+ *     tags: [Categories] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Category' 
+ *     responses: 
+ *       200: 
+ *         description: The category was added successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Category' 
+ *       500: 
+ *         description: Some server error 
+ */ 
 
 //Both Admin and Customer can Access the List of a Category.
 Category.get("/", Authorise(["Customer", "Admin"]), async (req, res) => {
@@ -46,6 +117,31 @@ Category.get("/", Authorise(["Customer", "Admin"]), async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /category: 
+ *   patch: 
+ *     summary: To Update the Active status of a category
+ *     tags: [Categories] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Category' 
+ *     responses: 
+ *       200: 
+ *         description: The category was added successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Category' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+ *         description: Category With This ID Doesn't Exist!
+ */ 
 
 //Only Admin Can Update the Activess of a Category.
 Category.patch("/:id", Authorise(["Admin"]), async (req, res) => {
@@ -68,6 +164,31 @@ Category.patch("/:id", Authorise(["Admin"]), async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /category: 
+ *   delete : 
+ *     summary: To delete the specific category by its ID 
+ *     tags: [Categories] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Category' 
+ *     responses: 
+ *       200: 
+ *         description: The category was added successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Category' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+ *         description: Category With This ID Doesn't Exist!
+ */ 
 
 //Only Admin Can Delete the Category.
 Category.delete("/:id", Authorise(["Admin"]), async (req, res) => {

@@ -7,11 +7,38 @@ const { Product } = require("./Routes/ProductRoute.js");
 const { Cart } = require("./Routes/CartRoute.js");
 const { Order } = require("./Routes/OrderRoute.js");
 require("dotenv").config();
+const swaggerJSdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 
 const app = express();
 
 app.use(express.json());
+
+//Configuration of Swagger JSdoc
+const options={ 
+    definition:{ 
+        openapi:"3.0.0", 
+        info:{ 
+            title:"API Documentation For Your Backend Project.", 
+            version:"1.0.0" 
+        }, 
+        servers:[ 
+            { 
+                url:"http://localhost:3000" 
+            } 
+        ] 
+    }, 
+    apis:["./Routes/*.js"] 
+};
+ 
+//OpenAPI Specification
+const openAPISpec=swaggerJSdoc(options); 
+
+//Build the SwaggerUI with the help of OpenAPI Spec
+app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(openAPISpec)); 
+ 
+
 app.use("/user",User);
 app.use(Authenticate)
 app.use("/category",Category);
@@ -24,7 +51,7 @@ app.listen(process.env.port,async()=>{
         await connection;
         console.log(`Server is Running on a Port ${process.env.port}`);
     } catch (error) {
-        res.send({error:error.message})
+        console.log({error:error.message})
     }
    
 })

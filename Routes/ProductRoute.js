@@ -4,6 +4,64 @@ const { Authorise } = require("../Middlewares/Authorization");
 
 const Product = express.Router();
 
+/** 
+ * @swagger 
+ * components: 
+ *   schemas: 
+ *     Product : 
+ *       type: object 
+ *       properties: 
+ *         id: 
+ *           type: string 
+ *           description: The auto-generated id of the user 
+ *         Title: 
+ *           type: string 
+ *           description: The title of a product
+ *         Price: 
+ *           type: number
+ *           description: The price of a product
+ *         Description: 
+ *           type: string 
+ *           description: The Description of a product
+ *         Availability:
+ *           type: string
+ *           description: The availability of a product
+ *         CategoryID:
+ *           type: string
+ *           description: The CategoryID of a product
+ */ 
+
+/**
+ * @swagger
+ * tags:
+ *  name: Products
+ *  description: All the API Routes related to Products
+ */
+
+/** 
+ * @swagger 
+ * /product: 
+ *   get: 
+ *     summary: To get the list of all the products
+ *     tags: [Products] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Product' 
+ *     responses: 
+ *       200: 
+ *         description: The list of all the Products
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Product' 
+ *       500: 
+ *         description: Some server error 
+ */ 
+
+
 //Both Admin and Customer can Access the List of a Products.
 Product.get("/", Authorise(["Customer", "Admin"]), async (req, res) => {
 
@@ -15,6 +73,30 @@ Product.get("/", Authorise(["Customer", "Admin"]), async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /product/:id: 
+ *   get: 
+ *     summary: To get details of a particular product by its ID
+ *     tags: [Products] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Product' 
+ *     responses: 
+ *       200: 
+ *         description: The Details of a Product
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Product' 
+ *       500: 
+ *         description: Some server error 
+ */ 
+
 
 //Both Admin and Customer can Access the Details of a Product By ID.
 Product.get("/:id", Authorise(["Customer", "Admin"]), async (req, res) => {
@@ -29,6 +111,30 @@ Product.get("/:id", Authorise(["Customer", "Admin"]), async (req, res) => {
 
 
 })
+
+/** 
+ * @swagger 
+ * /product: 
+ *   post: 
+ *     summary: To add the new product to database
+ *     tags: [Products] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Product' 
+ *     responses: 
+ *       200: 
+ *         description: The Product was added successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Product' 
+ *       500: 
+ *         description: Some server error 
+ */ 
+
 
 //Only Admin Can Post or Create A Product.
 Product.post("/", Authorise(["Admin"]), async (req, res) => {
@@ -50,6 +156,32 @@ Product.post("/", Authorise(["Admin"]), async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /product: 
+ *   patch: 
+ *     summary: To Update the availability of a product
+ *     tags: [Products] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Product' 
+ *     responses: 
+ *       200: 
+ *         description: The Product was Updated successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Product' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+ *         description: Product not Exist, Please Check It!
+ */ 
+
 
 //Only Admin Can Update the Availability of a Product.
 Product.patch("/:id", Authorise(["Admin"]), async (req, res) => {
@@ -78,6 +210,32 @@ Product.patch("/:id", Authorise(["Admin"]), async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /product: 
+ *   delete: 
+ *     summary: To delete the perticular product by it ID
+ *     tags: [Products] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Product' 
+ *     responses: 
+ *       200: 
+ *         description: The Product was deleted successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Product' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+ *         description: Product not Exist, Please Check It!
+ */ 
+
 
 //Only Admin Can Delete Product.
 Product.delete("/:id", Authorise(["Admin"]), async (req, res) => {

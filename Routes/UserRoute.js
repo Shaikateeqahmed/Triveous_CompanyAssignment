@@ -6,6 +6,63 @@ require("dotenv").config();
 
 const User = express.Router();
 
+/** 
+ * @swagger 
+ * components: 
+ *   schemas: 
+ *     User: 
+ *       type: object 
+ *       properties: 
+ *         id: 
+ *           type: string 
+ *           description: The auto-generated id of the user 
+ *         Name: 
+ *           type: string 
+ *           description: The user name 
+ *         Email: 
+ *           type: string 
+ *           description: The user email 
+ *         Password: 
+ *           type: string 
+ *           description: The password of a User
+ *         Phone_NO:
+ *           type: string
+ *           description: The Phone Numbe of a user
+ */ 
+
+
+
+/**
+ * @swagger
+ * tags:
+ *  name: Users
+ *  description: All the API Routes related to Users
+ */
+
+/** 
+ * @swagger 
+ * /user/signup: 
+ *   post: 
+ *     summary: To Register the details of a new user 
+ *     tags: [Users] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/User' 
+ *     responses: 
+ *       200: 
+ *         description: The user was successfully registered 
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/User' 
+ *       500: 
+ *         description: Some server error 
+ */ 
+ 
+
 User.post("/signup", async (req, res) => {
     const { Name, Email, Password, Phone_NO, Role } = req.body;
 
@@ -45,6 +102,29 @@ User.post("/signup", async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /user/login: 
+ *   post: 
+ *     summary: To Register the details of a new user 
+ *     tags: [Users] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/User' 
+ *     responses: 
+ *       200: 
+ *         description: The user was successfully Login
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/User' 
+ *       500: 
+ *         description: Some server error 
+ */ 
 
 User.post("/login", async (req, res) => {
 

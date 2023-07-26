@@ -3,6 +3,63 @@ const { CartModel } = require("../Modules/CartModel.js");
 const { OrderModel } = require("../Modules/OrderModel.js");
 const Order = express.Router();
 
+/** 
+ * @swagger 
+ * components: 
+ *   schemas: 
+ *     Order : 
+ *       type: object 
+ *       properties: 
+ *         id: 
+ *           type: string 
+ *           description: The auto-generated id of the user 
+ *         CustomerID: 
+ *           type: string 
+ *           description: The ID of a Customer
+ *         CartID: 
+ *           type: string
+ *           description: The ID of a Cart
+ *         OrderDate: 
+ *           type: string 
+ *           description: The Date of a Order
+ *         OrderTime:
+ *           type: string
+ *           description: The Time of a order
+ *         DeliveryDate:
+ *           type: string
+ *           description: The Date of a Delivery
+ */ 
+
+/**
+ * @swagger
+ * tags:
+ *  name: Orders
+ *  description: All the API Routes related to Orders
+ */
+
+/** 
+ * @swagger 
+ * /order/:id: 
+ *   get: 
+ *     summary: To place an order from the cart
+ *     tags: [Orders] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Order' 
+ *     responses: 
+ *       200: 
+ *         description: The order placed successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Order' 
+ *       500: 
+ *         description: Some server error 
+ */ 
+
 //EndPoint For Handle Order Placement, Allowing Users to place an order with Products from their Cart.
 Order.get("/:id", async (req, res) => {
 
@@ -63,6 +120,30 @@ Order.get("/:id", async (req, res) => {
 
 })
 
+/** 
+ * @swagger 
+ * /order: 
+ *   get: 
+ *     summary: To get the history of all the orders
+ *     tags: [Orders] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Orders' 
+ *     responses: 
+ *       200: 
+ *         description: The list of all the Orders
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Product' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+ *         description: Product not Exist, Please Check It!
+ */ 
 
 //EndPoint for Get the History of orders of a Perticular User Only.
 Order.get("/", async (req, res) => {
@@ -84,6 +165,31 @@ Order.get("/", async (req, res) => {
 
 })
 
+/** 
+ * @swagger 
+ * /order/orderdetails/:id: 
+ *   get: 
+ *     summary: To get Details of a perticular order
+ *     tags: [Orders] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Order' 
+ *     responses: 
+ *       200: 
+ *         description: The Details of a perticular order
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/order' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+ *         description: Order not Exist, Please Check It!
+ */ 
+
 //EndPoint for get the Details of a Particular Order by the help of OrderID.
 Order.get("/orderdetails/:id", async (req, res) => {
     let OrderID = req.params.id;
@@ -102,6 +208,32 @@ Order.get("/orderdetails/:id", async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /order: 
+ *   delete: 
+ *     summary: To delete the order
+ *     tags: [Orders] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Order' 
+ *     responses: 
+ *       200: 
+ *         description: The Orders was Deleted successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Order' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+ *         description: Order not Exist, Please Check It!
+ */ 
+
 
 //EndPoint for Deleting of a Particular Order by the help of OrderID.
 Order.delete("/:id", async (req, res) => {

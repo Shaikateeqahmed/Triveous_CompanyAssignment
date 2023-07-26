@@ -5,6 +5,59 @@ const { ProductModel } = require("../Modules/ProductModel");
 
 const Cart = express.Router();
 
+/** 
+ * @swagger 
+ * components: 
+ *   schemas: 
+ *     Cart : 
+ *       type: object 
+ *       properties: 
+ *         id: 
+ *           type: string 
+ *           description: The auto-generated id of the user 
+ *         ProductID: 
+ *           type: string 
+ *           description: The ID of a product
+ *         CustomerID: 
+ *           type: string
+ *           description: The ID of a Customer
+ *         Quantity: 
+ *           type: Number 
+ *           description: The Quantity of a product
+ *         Total_Price:
+ *           type: Number
+ *           description: The Total_Price of a product
+ */ 
+
+/**
+ * @swagger
+ * tags:
+ *  name: Carts
+ *  description: All the API Routes related to Carts
+ */
+
+/** 
+ * @swagger 
+ * /cart: 
+ *   get: 
+ *     summary: To get the list of all the products in cart
+ *     tags: [Carts] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Cart' 
+ *     responses: 
+ *       200: 
+ *         description: The list of all the Products in a cart
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Cart' 
+ *       500: 
+ *         description: Some server error 
+ */ 
 
 //Both Customer And Admin Can Access to they respective Cart Only.
 Cart.get("/", async (req, res) => {
@@ -18,6 +71,29 @@ Cart.get("/", async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /cart: 
+ *   post: 
+ *     summary: To add the new product to cart database
+ *     tags: [Carts] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Cart' 
+ *     responses: 
+ *       200: 
+ *         description: The Product was added successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Cart' 
+ *       500: 
+ *         description: Some server error 
+ */ 
 
 
 //Both Customer And Admin Can Add the Products To the Cart to they respective cart only.
@@ -43,6 +119,31 @@ Cart.post("/", Authorise(["Customer", "Admin"]), async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /cart: 
+ *   patch: 
+ *     summary: To Update the Quantity of a product
+ *     tags: [Carts] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Cart' 
+ *     responses: 
+ *       200: 
+ *         description: The Product was Updated successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Cart' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+  *         description: Product not Exist, Please Check It!
+ */      
 
 
 //Both Customer And Admin Can Update the Quantity of a Cart to they respective cart only.
@@ -75,6 +176,31 @@ Cart.patch("/:id", async (req, res) => {
     }
 
 })
+
+/** 
+ * @swagger 
+ * /cart: 
+ *   delete: 
+ *     summary: To delete the perticular product by it ID
+ *     tags: [Carts] 
+ *     requestBody: 
+ *       required: true 
+ *       content: 
+ *         application/json: 
+ *           schema: 
+ *             $ref: '#/components/schemas/Cart' 
+ *     responses: 
+ *       200: 
+ *         description: The Product was deleted successfully
+ *         content: 
+ *           application/json: 
+ *             schema: 
+ *               $ref: '#/components/schemas/Cart' 
+ *       500: 
+ *         description: Some server error 
+ *       409:
+ *         description: Product not Exist, Please Check It!
+ */ 
 
 //Both Customer And Admin Can Update the Quantity of a Cart to they respective cart only.
 Cart.delete("/:id", async (req, res) => {
