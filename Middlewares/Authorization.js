@@ -8,7 +8,7 @@ function Authorise(Role_Array){
         if(Role_Array.includes(UserRole)){
             next();
         }else{
-            res.send("Sorry!, You Are Not Authorised!");
+            res.status(401).json("Sorry!, You Are Not Authorised!");
         }
       }
 }

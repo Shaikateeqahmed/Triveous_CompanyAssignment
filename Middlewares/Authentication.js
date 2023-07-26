@@ -11,7 +11,7 @@ function Authenticate(req, res, next){
         //verifing the Token.
         jwt.verify(token,process.env.key,(error,decode)=>{
             if(error){
-                res.send("Token Expire, Please Login Again!");
+                res.status(498).json("Token Expire, Please Login Again!");
             }else{
 
                 // Taking a UserID and UserRole for Authorization and Security Purpose.
@@ -24,7 +24,7 @@ function Authenticate(req, res, next){
             }
         })
     }else{
-        res.send("Opps!, Its Seems Like You didn't Login. Please Login First!")
+        res.status(409).json("Opps!, Its Seems Like You didn't Login. Please Login First!")
     }
 }
 
