@@ -38,6 +38,9 @@ const openAPISpec=swaggerJSdoc(options);
 //Build the SwaggerUI with the help of OpenAPI Spec
 app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(openAPISpec)); 
  
+app.use("/",(req,res)=>{
+    res.send("Home page")
+})
 
 app.use("/user",User);
 app.use(Authenticate)
