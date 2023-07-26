@@ -9,9 +9,9 @@ Product.get("/", Authorise(["Customer", "Admin"]), async (req, res) => {
 
     try {
         let ProductList = await ProductModel.find();
-        res.send(ProductList);
+        res.status(200).json(ProductList);
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -22,9 +22,9 @@ Product.get("/:id", Authorise(["Customer", "Admin"]), async (req, res) => {
     try {
         let ProductID = req.params.id;
         let ProductByID = await ProductModel.find({ _id: ProductID });
-        res.send(ProductByID);
+        res.status(200).json(ProductByID);
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 
@@ -41,12 +41,12 @@ Product.post("/", Authorise(["Admin"]), async (req, res) => {
             // Saving the Product Data in Database.
             let newProduct = new ProductModel({ Title, Price, Description, Availability, CategoryID });
             await newProduct.save();
-            res.send(`Hi Admin, New Product ${Title} Added Successfully!`)
+            res.status(200).json(`Hi Admin, New Product ${Title} Added Successfully!`)
         } else {
-            res.send("Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....")
+            res.status(400).json("Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....")
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -65,16 +65,16 @@ Product.patch("/:id", Authorise(["Admin"]), async (req, res) => {
             //Updating a data of a Product by ID.
             if (ProductByID[0].Availability === "Yes") {
                 await ProductModel.findByIdAndUpdate({ _id: ProductID }, { Availability: "No" });
-                res.send(`Product ${ProductByID[0].Title} is Updated Availabiliy From Yes to No.`);
+                res.status(200).json(`Product ${ProductByID[0].Title} is Updated Availabiliy From Yes to No.`);
             } else {
                 await ProductModel.findByIdAndUpdate({ _id: ProductID }, { Availability: "Yes" });
-                res.send(`Product ${ProductByID[0].Title} is Updated Availabiliy From No to Yes.`);
+                res.status(200).json(`Product ${ProductByID[0].Title} is Updated Availabiliy From No to Yes.`);
             }
         } else {
-            res.send(`Product With This ID Doesn't Exist!`);
+            res.status(409).json(`Product With This ID Doesn't Exist!`);
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -93,13 +93,13 @@ Product.delete("/:id", Authorise(["Admin"]), async (req, res) => {
 
             //Deleting a data of a Product by ID.
             await ProductModel.findByIdAndDelete({ _id: ProductID });
-            res.send(`Product ${ProductByID[0].Title} is Deleted Successfully!.`);
+            res.status(200).json(`Product ${ProductByID[0].Title} is Deleted Successfully!.`);
 
         } else {
-            res.send(`Product With This ID Doesn't Exist!`);
+            res.status(409).json(`Product With This ID Doesn't Exist!`);
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })

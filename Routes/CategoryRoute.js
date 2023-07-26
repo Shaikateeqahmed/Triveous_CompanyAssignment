@@ -17,19 +17,19 @@ Category.post("/", Authorise(["Admin"]), async (req, res) => {
 
             //Checking for the Category is new or Already Exist.
             if (Is_Category_Exist.length > 0) {
-                res.send("Category Already Exist, Please Check It!");
+                res.status(409).json("Category Already Exist, Please Check It!");
             } else {
 
                 // Saving the Category Data in Database.
                 let newCategory = new CategoryModel({ CategoryName, Active });
                 await newCategory.save();
-                res.send(`Hi Admin, New Category ${CategoryName} Added Successfull!`);
+                res.status(200).json(`Hi Admin, New Category ${CategoryName} Added Successfull!`);
             }
         } else {
-            res.send("Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....")
+            res.status(400).json("Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....")
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -40,9 +40,9 @@ Category.get("/", Authorise(["Customer", "Admin"]), async (req, res) => {
 
     try {
         let CategoryList = await CategoryModel.find();
-        res.send(CategoryList);
+        res.status(200).json(CategoryList);
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -59,12 +59,12 @@ Category.patch("/:id", Authorise(["Admin"]), async (req, res) => {
 
             //Updating a data of a category by ID.
             let Update_Activeness = await CategoryModel.findByIdAndUpdate({ _id: CategoryID }, { Active: !CategoryByID[0].Active });
-            res.send(`Category ${CategoryByID[0].CategoryName} is Updated Active Status From ${CategoryByID[0].Active} to ${!CategoryByID[0].Active}`);
+            res.status(200).json(`Category ${CategoryByID[0].CategoryName} is Updated Active Status From ${CategoryByID[0].Active} to ${!CategoryByID[0].Active}`);
         } else {
-            res.send(`Category With This ID Doesn't Exist!`);
+            res.status(409).json(`Category With This ID Doesn't Exist!`);
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -81,12 +81,12 @@ Category.delete("/:id", Authorise(["Admin"]), async (req, res) => {
 
             //Deleting a data of a category by ID.
             let Deleting_Category = await CategoryModel.findByIdAndDelete({ _id: CategoryID });
-            res.send(`Category ${CategoryByID[0].CategoryName} is Deleted Successfully!`);
+            res.status(200).json(`Category ${CategoryByID[0].CategoryName} is Deleted Successfully!`);
         } else {
-            res.send(`Category With This ID Doesn't Exist!`);
+            res.status(409).json(`Category With This ID Doesn't Exist!`);
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })

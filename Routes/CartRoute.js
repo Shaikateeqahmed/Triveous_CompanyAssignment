@@ -12,9 +12,9 @@ Cart.get("/", async (req, res) => {
     try {
         let CustomerID = req.body.UserID;
         let CartDetailsOfACustomer = await CartModel.find({ CustomerID });
-        res.send(CartDetailsOfACustomer);
+        res.status(200).json(CartDetailsOfACustomer);
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -34,12 +34,12 @@ Cart.post("/", Authorise(["Customer", "Admin"]), async (req, res) => {
             //Saving the Cart Details with the Details of Product And Customer in Database.
             let addToCart = new CartModel({ ProductID, CustomerID, Quantity, Total_Price });
             await addToCart.save();
-            res.send(`Quantity:- ${Quantity} of a Product Price:- ${Price} with the Total Price:- ${Total_Price} is Added To Cart Successfully! `);
+            res.status(200).json(`Quantity:- ${Quantity} of a Product Price:- ${Price} with the Total Price:- ${Total_Price} is Added To Cart Successfully! `);
         } else {
-            res.send(`Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....`);
+            res.status(400).json(`Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....`);
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -62,16 +62,16 @@ Cart.patch("/:id", async (req, res) => {
             //Checking for User is Authorised to Update a Quantity of a Cart.
             if (CustomerID === CustomerID_in_cart[0].CustomerID) {
                 await CartModel.findByIdAndUpdate({ _id: cartID }, { Quantity, Total_Price });
-                res.send(`Quantity of a Cart Changes to ${Quantity}`);
+                res.status(200).json(`Quantity of a Cart Changes to ${Quantity}`);
             } else {
-                res.send("You Are Not Authorised To Update a Quantity of a Cart!");
+                res.status(401).json("You Are Not Authorised To Update a Quantity of a Cart!");
             }
 
         } else {
-            res.send(`Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....`);
+            res.status(400).json(`Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....`);
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -87,12 +87,12 @@ Cart.delete("/:id", async (req, res) => {
         //Checking for User is Authorised to Delete the Item of a Cart.
         if (CustomerID === CustomerID_in_cart[0].CustomerID) {
             await CartModel.findByIdAndDelete({ _id: cartID });
-            res.send(`Item Deleted Successfully from the Cart!`);
+            res.status(200).json(`Item Deleted Successfully from the Cart!`);
         } else {
-            res.send("You Are Not Authorised To Delete a Item of a Cart!");
+            res.status(401).json("You Are Not Authorised To Delete a Item of a Cart!");
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })

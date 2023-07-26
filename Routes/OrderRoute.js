@@ -53,12 +53,12 @@ Order.get("/:id", async (req, res) => {
 
             //Removing the Cart Information from the cart Collection for not appearing again after added to orders.
             await CartModel.findByIdAndDelete({ _id: CartID });
-            res.send(`Cart Having ID:- ${CartID} is Added To Orders Successfully!`);
+            res.status(200).json(`Cart Having ID:- ${CartID} is Added To Orders Successfully!`);
         } else {
-            res.send(`Cart With this ID not Exists!`);
+            res.status(409).json(`Cart With this ID not Exists!`);
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -74,12 +74,12 @@ Order.get("/", async (req, res) => {
 
         //Checking for Is User Make Any Order Or not.
         if (OrderHistoryOfAUser.length > 0) {
-            res.send({ "Your's Order History": OrderHistoryOfAUser });
+            res.status(200).json({ "Your's Order History": OrderHistoryOfAUser });
         } else {
-            res.send("Opps|, You did not Order Anything!")
+            res.status(409).json("Opps|, You did not Order Anything!")
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -93,12 +93,12 @@ Order.get("/orderdetails/:id", async (req, res) => {
 
         //Checking For the Order with the ID is Exist or not
         if (OrderDetailsOfAParticularOrder.length > 0) {
-            res.send(OrderDetailsOfAParticularOrder);
+            res.status(200).json(OrderDetailsOfAParticularOrder);
         } else {
-            res.send(`Order with this Id doesn't Exist!`);
+            res.status(409).json(`Order with this Id doesn't Exist!`);
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -115,12 +115,12 @@ Order.delete("/:id", async (req, res) => {
 
             //Deleting The Order If Exist.
             await OrderModel.findByIdAndDelete({ _id: OrderID });
-            res.send(`Order With the ID:- ${OrderID} is deleted Successfully!`);
+            res.status(200).json(`Order With the ID:- ${OrderID} is deleted Successfully!`);
         } else {
-            res.send(`Order with this Id doesn't Exist!`);
+            res.status(409).json(`Order with this Id doesn't Exist!`);
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })

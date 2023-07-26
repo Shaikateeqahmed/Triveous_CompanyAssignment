@@ -18,7 +18,7 @@ User.post("/signup", async (req, res) => {
             //Checking If User Already Exist Or Not. If User Not Exist then Register the New User.
             if (Is_User_Exist.length > 0) {
 
-                res.send("User With This EmailID Already Exist!");
+                res.status(409).json("User With This EmailID Already Exist!");
 
             } else {
 
@@ -26,22 +26,22 @@ User.post("/signup", async (req, res) => {
                 bcrypt.hash(Password, 5, async (error, hash) => {
                     if (error) {
                         console.error(error);
-                        res.send("Opps!, Something Went Wrong Please Try Can After SameTime!");
+                        res.status(500).json("Opps!, Something Went Wrong Please Try Again After SameTime!");
                     } else {
 
                         // Saving The Data of a User In DataBase.
                         let newUser = new UserModel({ Name, Email, Password: hash, Phone_NO, Role });
                         await newUser.save();
-                        res.send(`Congratulations ${Name}, You Signup Successfully!`);
+                        res.status(200).json(`Congratulations ${Name}, You Signup Successfully!`);
                     }
                 })
             }
 
         } else {
-            res.send(`Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....`)
+            res.status(400).json(`Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....`)
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
@@ -63,23 +63,23 @@ User.post("/login", async (req, res) => {
                 // Checking for Password is Correct or not at the time of login.
                 bcrypt.compare(Password, Is_User_Exist[0].Password, (error, result) => {
                     if (error) {
-                        res.send("Password is Incorrect, Please Check Your Password!");
+                        res.status(400).json("Password is Incorrect, Please Check Your Password!");
                     } else {
 
                         // if User is Already Exist and Password is correct then give a Token to the login user.
                         let token = jwt.sign({ UserID: Is_User_Exist[0]._id, UserRole: Is_User_Exist[0].Role }, process.env.key);
-                        res.send(token);
+                        res.status(200).json(token);
                     }
                 })
             } else {
-                res.send("Opps!, Its Seems Like You didn't Signup. Please Signup First!");
+                res.status(404).json("Opps!, Its Seems Like You didn't Signup. Please Signup First!");
             }
 
         } else {
-            res.send("Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....")
+            res.status(400).json("Opps!, Its Seems Like You Don't Provide All The Required Fields!. Please Fill All The Fields....")
         }
     } catch (error) {
-        res.send({ error: error.message });
+        res.status(400).json({ error: error.message });
     }
 
 })
