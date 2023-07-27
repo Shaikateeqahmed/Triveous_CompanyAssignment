@@ -82,7 +82,7 @@
 
 > POST /product
 
-- if Admin provides a provides Title, Price, Description, Availability, CategoryID then serve will store the data.
+- if Admin provides a Title, Price, Description, Availability, CategoryID then serve will store the data.
 
 - Admin will get the following response
    - 200 as Response, if admin post product successfully.
@@ -165,7 +165,7 @@
 
 > PATCH /cart
 
-- if Admin provides a ID of a cart in params, then server will get that cart by ID and Update the Quantity of a cart.
+- if user provides a ID of a cart in params, then server will get that cart by ID and Update the Quantity of a cart.
 
 - Admin will get the following response
    - 200 as Response, if Quantity Updated successfully.
@@ -178,7 +178,7 @@
 
 > DELETE /cart
 
-- if Admin provides a ID of a cart in params, then server will get that cart by ID and Delete the cart.
+- if user provides a ID of a cart in params, then server will get that cart by ID and Delete the cart.
 
 - Admin will get the following response
    - 200 as Response, if Cart Delete successfully.
@@ -193,15 +193,15 @@
 
 > GET /order/:id
 
-- if user provides a CartID in params then server will store the data.
+- if user provides a CartID in params then server will store the data in orders collection.
 
 - User will get the following response
-   - 200 as Response, if User Order successfully.
+   - 200 as Response, if User placed a Order successfully.
    - 409 as Response, if CartID is not exist in collection of Cart.
    - 500 as Response, if server not response.
 
 
-## Request for getting a list of Orders.
+## Request for getting a History of Orders.
 
 > GET /order
 
@@ -235,3 +235,10 @@
    - 200 as Response, if order Delete successfully.
    - 409 as Response, if order with that ID not exist.
    - 500 as Response, if server not response.
+
+
+====================================================================================================================================
+
+Link of a Swagger Documentation: http://localhost:3000/api-docs/#/
+
+Link of a Presentation vedio: https://drive.google.com/file/d/1TMLsE9BRalfzJoe8Z-Dq-s9UFurj7CJO/view?usp=sharing
